@@ -1,3 +1,26 @@
+## Innehåll
+
+1. [Snabbåtkomst](#snabbåtkomst)
+2. [Grundregler](#grundregler)
+3. [Pair och mob programming](#pair-och-mob-programming)
+4. [Standard Workflow](#standard-workflow)
+   1. [Skapa en feature branch](#1-skapa-en-feature-branch)
+   2. [Arbeta i din branch](#2-arbeta-i-din-branch)
+   3. [Push din branch](#3-push-din-branch)
+   4. [Fortsätta arbeta nästa dag](#4-fortsätta-arbeta-nästa-dag)
+   5. [Uppdatera din branch](#5-uppdatera-din-branch-om-main-har-ändrats)
+   6. [Skapa Pull Request](#6-skapa-pull-request)
+   7. [Code Review](#7-code-review)
+   8. [Merge till main](#8-merge-till-main)
+   9. [Ångra senaste commit](#9-ångra-senaste-commit)
+   10. [Tracking on a branch](#10-tracking-on-a-branch)
+5. [Commit regler](#commit-regler)
+6. [Commit guidelines](#commit-guidelines)
+7. [Innan du loggar ut](#innan-du-loggar-ut)
+8. [Säkerhetsregel](#säkerhetsregel)
+
+---
+
 # Git Workflow (Branching & Pull Requests)
 
 För att säkerställa ett strukturerat arbete i projektet använder vi **feature branches** från `main`.
@@ -14,12 +37,12 @@ Vi använder Git för versionshantering och GitHub för repository, Pull Request
 
 Kontrollera din egen e-post med `git config user.email`. Lägg **inte** till dig själv som co-author, bara de andra du jobbat med.
 
-| Namn | E-post |
-|---|---|
-| Miranda Lyng | lyngmiranda@gmail.com |
-| Lisa Yllander | lisaylander92@gmail.com |
-| Alexandra Kaktus | aurabyte.dev@gmail.com |
-| Rickard Garnau | rickardgarnau@gmail.com |
+| Namn             | E-post                  |
+| ---------------- | ----------------------- |
+| Miranda Lyng     | lyngmiranda@gmail.com   |
+| Lisa Yllander    | lisaylander92@gmail.com |
+| Alexandra Kaktus | aurabyte.dev@gmail.com  |
+| Rickard Garnau   | rickardgarnau@gmail.com |
 
 Kopiera de rader du behöver:
 
@@ -51,14 +74,14 @@ Mer om formatet: [Pair och mob programming](#pair-och-mob-programming).
 
 ### Commit-prefix
 
-| Prefix | Användning |
-|---|---|
-| `chore` | Set up / konfiguration |
-| `feat` | Ny funktionalitet |
-| `fix` | Buggfix |
-| `docs` | Dokumentation |
-| `refactor` | Kodomstrukturering |
-| `test` | Tester |
+| Prefix     | Användning             |
+| ---------- | ---------------------- |
+| `chore`    | Set up / konfiguration |
+| `feat`     | Ny funktionalitet      |
+| `fix`      | Buggfix                |
+| `docs`     | Dokumentation          |
+| `refactor` | Kodomstrukturering     |
+| `test`     | Tester                 |
 
 Exempel: `feat: add weather data filtering`, `fix: resolve csv parsing error`, `docs: update README installation guide`.
 Fler regler: [Commit guidelines](#commit-guidelines).
@@ -75,29 +98,6 @@ git push origin <branch>                     # pusha
 git push --set-upstream origin <branch>      # första pushen av en ny branch
 git pull origin main                         # hämta senaste main
 ```
-
----
-
-## Innehåll
-
-1. [Snabbåtkomst](#snabbåtkomst)
-2. [Grundregler](#grundregler)
-3. [Pair och mob programming](#pair-och-mob-programming)
-4. [Standard Workflow](#standard-workflow)
-   1. [Skapa en feature branch](#1-skapa-en-feature-branch)
-   2. [Arbeta i din branch](#2-arbeta-i-din-branch)
-   3. [Push din branch](#3-push-din-branch)
-   4. [Fortsätta arbeta nästa dag](#4-fortsätta-arbeta-nästa-dag)
-   5. [Uppdatera din branch](#5-uppdatera-din-branch-om-main-har-ändrats)
-   6. [Skapa Pull Request](#6-skapa-pull-request)
-   7. [Code Review](#7-code-review)
-   8. [Merge till main](#8-merge-till-main)
-   9. [Ångra senaste commit](#9-ångra-senaste-commit)
-   10. [Tracking on a branch](#10-tracking-on-a-branch)
-5. [Commit regler](#commit-regler)
-6. [Commit guidelines](#commit-guidelines)
-7. [Innan du loggar ut](#innan-du-loggar-ut)
-8. [Säkerhetsregel](#säkerhetsregel)
 
 ---
 
@@ -341,14 +341,14 @@ git branch -u origin/feature/branch_name
 
 Vi använder följande commit-prefix:
 
-| Prefix | Användning |
-|---|---|
-| `chore` | Set up / konfiguration |
-| `feat` | Ny funktionalitet |
-| `fix` | Buggfix |
-| `docs` | Dokumentation |
-| `refactor` | Kodomstrukturering |
-| `test` | Tester |
+| Prefix     | Användning             |
+| ---------- | ---------------------- |
+| `chore`    | Set up / konfiguration |
+| `feat`     | Ny funktionalitet      |
+| `fix`      | Buggfix                |
+| `docs`     | Dokumentation          |
+| `refactor` | Kodomstrukturering     |
+| `test`     | Tester                 |
 
 ## Commit guidelines
 
