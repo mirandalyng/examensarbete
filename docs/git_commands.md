@@ -53,7 +53,7 @@ Co-authored-by: Alexandra Kaktus <aurabyte.dev@gmail.com>
 Co-authored-by: Rickard Garnau <rickardgarnau@gmail.com>
 ```
 
-Färdigt kommando (kort):
+Färdigt kommando (kort - för en co-authors):
 
 ```bash
 git commit -m "feat: add track ingest" -m "Co-authored-by: Miranda Lyng <lyngmiranda@gmail.com>"
@@ -62,12 +62,8 @@ git commit -m "feat: add track ingest" -m "Co-authored-by: Miranda Lyng <lyngmir
 Färdigt kommando (med beskrivning och flera co-authors):
 
 ```bash
-git commit -m "feat: add login with email and password
-
-Short description of what and why.
-
-Co-authored-by: Lisa Yllander <lisaylander92@gmail.com>
-Co-authored-by: Alexandra Kaktus <aurabyte.dev@gmail.com>"
+git commit -m "chore: add folder structure and update daily_log" -m "Co-authored-by: Miranda Lyng <lyngmiranda@gmail.com>
+Co-authored-by: Rickard Garnau <rickardgarnau@gmail.com>"
 ```
 
 Mer om formatet: [Pair och mob programming](#pair-och-mob-programming).
