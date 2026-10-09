@@ -218,3 +218,26 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# dlt
+.dlt/secrets.toml
+
+# dbt
+dbt_packages/
+logs/
+profiles.yml
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# Env-varianter
+.env.*
+!.env.example
+
+# Rådata (stora filer avvisas av GitHub över 100 MB)
+data/raw/
+
+# OS
+.DS_Store
+Thumbs.db
