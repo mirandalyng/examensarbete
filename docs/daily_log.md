@@ -26,3 +26,9 @@ Lisa, Miranda och Rickard
 
 ---
 
+12/10 "Hämta data och göra eda"
+Medverkande: Lisa, Rickard, Miranda
+Beskrivning: Vi hämtade data från Kaggle (Spotify) och Musicbrainz (API). Otydliga regler om vi får använda Deezers API för att spela upp låtar men vi har mailat dom och inväntar svar. Det vi kan göra är att använda Spotify för att spela upp låtar men då behövs "track_id" som saknas i API:et för Musicbrainz. Vi avvaktar tills vi får svar från Deezer men testar använda Kaggledatan och får kanske nöja oss med det sålänge. mer värt att lägga tid på AI-agenten än att hitta mer data?
+Information: Kolla gärna igenom eda för Kaggle och Musicbrainz.
+
+---
