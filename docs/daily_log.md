@@ -35,16 +35,16 @@ Lisa, Miranda och Rickard
 
 #### Beskrivning:
 
-Vi hämtade data från Kaggle (Spotify) och Musicbrainz (API). Otydliga regler om vi får använda Deezers API för att spela upp låtar men vi har mailat dom och inväntar svar. Det vi kan göra är att använda Spotify för att spela upp låtar men då behövs "track_id" som saknas i API:et för Musicbrainz. Vi avvaktar tills vi får svar från Deezer men testar använda Kaggledatan och får kanske nöja oss med det sålänge. mer värt att lägga tid på AI-agenten än att hitta mer data?
+Vi hämtade data från Kaggle (Spotify) och Musicbrainz (API). Otydliga regler om vi får använda Deezers API för att spela upp låtar men vi har mailat dom och inväntar svar. Det vi kan göra är att använda Spotify för att spela upp låtar men då behövs "id" som saknas i API:et för Musicbrainz. Vi avvaktar tills vi får svar från Deezer men testar använda Kaggledatan och får kanske nöja oss med det sålänge. mer värt att lägga tid på AI-agenten än att hitta mer data?
 
-Vi testade sedan koppla endast kaggle datan (track id ) mot spotify url för att få ut en url för varje låt baserat på tack_id i kaggle-dataset. Detta fungerade bra!
+Vi testade sedan koppla endast kaggle datan (id ) mot spotify url för att få ut en url för varje låt baserat på id i kaggle-dataset. Detta fungerade bra!
 
 #### Information:
 
-- Kolla gärna igenom eda för Kaggle och Musicbrainz.
+- Kolla gärna igenom eda_dataset_kaggle
 
 - Kör en uv sync
 
-- Ladda ner dataset (Discord) eller länk: https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset och skapa en mapp data/raw. Lägg dataset i raw-mappen.
+- Ladda ner dataset (Discord) eller länk: https://www.kaggle.com/datasets/yamaerenay/spotify-dataset-19212020-600k-tracks?select=tracks.csv och skapa en mapp data/raw. Lägg datasen tracks och artists i raw-mappen.
 
 ---
