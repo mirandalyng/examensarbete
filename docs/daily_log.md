@@ -48,3 +48,15 @@ Vi testade sedan koppla endast kaggle datan (id ) mot spotify url för att få u
 - Ladda ner dataset (Discord) eller länk: https://www.kaggle.com/datasets/yamaerenay/spotify-dataset-19212020-600k-tracks?select=tracks.csv och skapa en mapp data/raw. Lägg datasen tracks och artists i raw-mappen.
 
 ---
+
+12/10 "Testa städning av samtliga filer (artist, tracks och dataset (för album))"
+Medverkande: Lisa
+Beskrivning: Läste in alla filer separat och testade städa/rensa. Tex, ändra kolumnnamn, klumpa ihop genres till bredare grupperingar, ta bort tomma rader mm. Nästa steg är att skapa tre separata .py-filer för att göra själva städningen och spara ner en samlad parquet-fil:
+Tex: 
+├── clean_artists.py           # Funktioner för att städa artists.csv
+├── clean_tracks.py            # Funktioner för att städa tracks.csv
+├── clean_albums.py            # Funktioner för att städa dataset.csv
+│
+└── main.py                    # Kör allt, joinar och sparar till Parquet
+
+Information: Se cleaning_datasets under eda-mappen
