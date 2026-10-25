@@ -241,3 +241,7 @@ data/raw/
 # OS
 .DS_Store
 Thumbs.db
+
+# Duckdb
+warehouse.duckdb
+*duckdb.wal
