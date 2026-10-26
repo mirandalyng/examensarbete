@@ -36,7 +36,7 @@ Att göra: `uv add dbt-duckdb`. Kontrollera efteråt att `duckdb` fortfarande ä
 |---|---|
 | Kör raw-pipelinen (från projektroten) | `uv run dlt/load_data.py` |
 | Nollställ vid trasig dlt-körning | `rm -rf ~/.dlt/pipelines/musicquiz` och `rm -f warehouse.duckdb` |
-| Öppna DuckDB UI | `duckdb -ui warehouse.duckdb` |
+| Öppna DuckDB UI | `duckdb -ui duckdb/warehouse.duckdb` |
 | Lista alla tabeller | `duckdb warehouse.duckdb -c "show all tables"` |
 | Kolla versioner | `duckdb --version` och `uv run python -c "import duckdb; print(duckdb.__version__)"` |
 | Synka miljön efter `git pull` | `uv sync` |
