@@ -1,8 +1,9 @@
 version: 2
+
 sources:
   - name: raw
     schema: raw
     tables:
+      - name: artists
       - name: dataset
       - name: tracks
-      - name: artists
