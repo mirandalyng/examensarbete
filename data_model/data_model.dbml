@@ -1,0 +1,24 @@
+Table stg_artist {
+  artist_id varchar [pk]
+  artist_name varchar
+  artist_genre varchar[] [note: "lista i källfilen, ofta tom"]
+  artist_popularity int [note: "popularity of artist in range 0 to 100, maybe have a limit from 50 and up?"]
+}
+
+Table stg_tracks {
+  track_id varchar [pk]
+  track_name varchar
+  release_year int [note: "originally release_date in tracks file"]
+  track_popularity int [note: "popularity of track in range 0 to 100"]
+}
+
+Table stg_track_artists {
+  track_id varchar [not null, ref: > stg_tracks.track_id]
+  artist_id varchar [not null, ref: > stg_artist.artist_id]
+  Note: "Brotabell: en låt kan ha flera artister. Byggs genom att tolka id_artists-listan i tracks-filen, en rad per låt och artist."
+}
+
+Table stg_album {
+  track_id varchar [pk, ref: - stg_tracks.track_id , note:"En-till-en: en låt har en albumrad (track_id är pk), därför - och inte < "]
+  album_name varchar
+}
