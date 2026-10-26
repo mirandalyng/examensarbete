@@ -25,7 +25,7 @@ def spotify_csv():
 if __name__ == "__main__":
     pipeline = dlt.pipeline(
         pipeline_name="musicquiz",
-        destination=dlt.destinations.duckdb("warehouse.duckdb"),
+        destination=dlt.destinations.duckdb("duckdb/warehouse.duckdb"),
         dataset_name="raw"
     )
     print(pipeline.run(spotify_csv(), loader_file_format="parquet"))

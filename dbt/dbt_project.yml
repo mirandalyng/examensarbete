@@ -1,0 +1,13 @@
+name: musicquiz
+version: "1.0"
+profile: musicquiz
+model-paths: ["models"]
+macro-paths: ["macros"]
+models:
+  musicquiz:
+    staging:
+      +schema: staging
+      +materialized: table
+    marts:
+      +schema: marts
+      +materialized: table
