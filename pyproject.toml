@@ -8,12 +8,15 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "dlt[parquet]>=1.31.0",
+    "dbt-duckdb>=1.11.0",
+    "dlt[duckdb,parquet]>=1.31.0",
     "dotenv>=0.9.9",
+    "duckdb==1.4.1",
     "ipykernel>=7.4.0",
     "lancedb>=0.40.0",
     "matplotlib>=3.11.2",
     "pandas>=3.0.6",
+    "pyarrow>=26.0.0",
     "python-dotenv>=1.2.4",
     "requests>=2.34.2",
     "sentence-transformers>=6.2.0",
