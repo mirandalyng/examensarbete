@@ -53,27 +53,49 @@ with
             ) as main_genres
         from artist_genres_mapped
         group by artist_id
-    )
+    ), 
 
 -- 4. Join tracks with their artists, genres and album,
 -- then collapse to one row per track.
 -- Tracks without a matching artist are dropped by the inner joins.
-select
-    t.track_id,
-    t.track_name,
-    t.release_year,
-    t.track_popularity,
-    -- A track can have several artists: combine their names.
-    string_agg(distinct ar.artist_name, ', ') as artist_names,
-    -- The most popular artist on the track.
-    max(ar.artist_popularity) as artist_popularity,
-    -- Main genres from the seed, merged across all artists on the track.
-    list_distinct(flatten(list(amg.main_genres))) as genres,
-    -- dataset.csv has at most one album per track after staging.
-    any_value(al.album) as album
-from stg_tracks t
-join stg_track_artists ta on t.track_id = ta.track_id
-join stg_artists ar on ta.artist_id = ar.artist_id
-left join artist_main_genres amg on ar.artist_id = amg.artist_id
-left join stg_albums al on t.track_id = al.track_id
-group by t.track_id, t.track_name, t.release_year, t.track_popularity
+    quiz_tracks_raw as(
+        select
+            t.track_id,
+            t.track_name,
+            t.release_year,
+            t.track_popularity,
+            -- A track can have several artists: combine their names.
+            string_agg(distinct ar.artist_name, ', ') as artist_names,
+            -- The most popular artist on the track.
+            max(ar.artist_popularity) as artist_popularity,
+            -- Main genres from the seed, merged across all artists on the track.
+            list_distinct(flatten(list(amg.main_genres))) as genres,
+            -- dataset.csv has at most one album per track after staging.
+            coalesce(any_value(al.album), 'Missing album') as album
+        from stg_tracks t
+        join stg_track_artists ta on t.track_id = ta.track_id
+        join stg_artists ar on ta.artist_id = ar.artist_id
+        left join artist_main_genres amg on ar.artist_id = amg.artist_id
+        left join stg_albums al on t.track_id = al.track_id
+        group by t.track_id, t.track_name, t.release_year, t.track_popularity
+    )
+
+
+select count(*)
+from quiz_tracks_raw
+where {{ is_latin_text('track_name') }}
+  and {{ is_latin_text('artist_names') }}
+  and (album is null or {{ is_latin_text('album') }})
+  and (
+    (artist_popularity > 50 and track_popularity > 20)
+    or 
+    (track_popularity > 50 and artist_popularity > 20)
+  )
+
+-- total rows 233,688k 
+--   and artist_popularity > 50 and track_popularity > 20
+--   or track_popularity > 50 and artist_popularity > 20
+
+-- total 83k 
+--  and artist_popularity > 60 and track_popularity > 40
+--   or track_popularity > 60 and artist_popularity > 40
