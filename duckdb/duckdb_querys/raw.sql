@@ -39,3 +39,12 @@ t as (
 )
 select count(distinct d.track_id) as matchade_namn_artist
 from d join t using (n, a);
+
+
+-- Remove non latin letters and trim
+-- If the column is empty -> NULL -> remove
+SELECT 
+  NULLIF(TRIM(REGEXP_REPLACE(name, '[^a-zA-Z0-9\s]', '', 'g')), '') AS new_name
+FROM raw.tracks
+WHERE new_name is not null
+ORDER BY name;

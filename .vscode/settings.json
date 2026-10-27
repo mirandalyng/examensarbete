@@ -1,4 +1,5 @@
 {
-    "python-envs.pythonProjects": [],
-    "dbt.queryLimit": 20
+    "dbt.queryLimit": 100,
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "dbt.perspectiveTheme": "Vintage"
 }

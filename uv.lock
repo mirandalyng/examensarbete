@@ -761,6 +761,7 @@ name = "examensarbete"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "dbt-core" },
     { name = "dbt-duckdb" },
     { name = "dlt", extra = ["duckdb", "parquet"] },
     { name = "dotenv" },
@@ -777,6 +778,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "dbt-core", specifier = ">=1.12.6" },
     { name = "dbt-duckdb", specifier = ">=1.11.0" },
     { name = "dlt", extras = ["duckdb", "parquet"], specifier = ">=1.31.0" },
     { name = "dotenv", specifier = ">=0.9.9" },
