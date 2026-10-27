@@ -35,35 +35,28 @@ Lisa, Miranda och Rickard
 
 #### Beskrivning:
 
-Vi hämtade data från Kaggle (Spotify) och Musicbrainz (API). Otydliga regler om vi får använda Deezers API för att spela upp låtar men vi har mailat dom och inväntar svar. Det vi kan göra är att använda Spotify för att spela upp låtar men då behövs "id" som saknas i API:et för Musicbrainz. Vi avvaktar tills vi får svar från Deezer men testar använda Kaggledatan och får kanske nöja oss med det sålänge. mer värt att lägga tid på AI-agenten än att hitta mer data?
+Vi hämtade data från Kaggle (Spotify) och Musicbrainz (API). Otydliga regler om vi får använda Deezers API för att spela upp låtar men vi har mailat dom och inväntar svar. Det vi kan göra är att använda Spotify för att spela upp låtar men då behövs "track_id" som saknas i API:et för Musicbrainz. Vi avvaktar tills vi får svar från Deezer men testar använda Kaggledatan och får kanske nöja oss med det sålänge. mer värt att lägga tid på AI-agenten än att hitta mer data?
 
-Vi testade sedan koppla endast kaggle datan (id ) mot spotify url för att få ut en url för varje låt baserat på id i kaggle-dataset. Detta fungerade bra!
+Vi testade sedan koppla endast kaggle datan (track id ) mot spotify url för att få ut en url för varje låt baserat på tack_id i kaggle-dataset. Detta fungerade bra!
 
 #### Information:
 
-- Kolla gärna igenom eda_dataset_kaggle
+- Kolla gärna igenom eda för Kaggle och Musicbrainz.
 
 - Kör en uv sync
 
-- Ladda ner dataset (Discord) eller länk: https://www.kaggle.com/datasets/yamaerenay/spotify-dataset-19212020-600k-tracks?select=tracks.csv och skapa en mapp data/raw. Lägg datasen tracks och artists i raw-mappen.
+- Ladda ner dataset (Discord) eller länk: https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset och skapa en mapp data/raw. Lägg dataset i raw-mappen.
 
 ---
 
-### 12/10 "Testa städning av samtliga filer (artist, tracks och dataset (för album))"
+### 26/10 "Byggt staging-lagret"
 
-#### Medverkande: Lisa
+#### Medverkande: Rickard, Miranda, Lisa
 
 #### Beskrivning:
 
-Läste in alla filer separat och testade städa/rensa. Tex, ändra kolumnnamn, klumpa ihop genres till bredare grupperingar, ta bort tomma rader mm. Nästa steg är att skapa tre separata .py-filer för att göra själva städningen och spara ner en samlad parquet-fil:
-
-Tex:
-├── clean_artists.py # Funktioner för att städa artists.csv
-├── clean_tracks.py # Funktioner för att städa tracks.csv
-├── clean_albums.py # Funktioner för att städa dataset.csv
-│
-└── main.py # Kör allt, joinar och sparar till Parquet
-
-#### Information:
-
-Se cleaning_datasets under eda-mappen
+- Byggt staging-modeller i dbt för artists, tracks och albums.
+- Byggt mellantabellen stg_track_artists, som kopplar ihop låtar och artister.
+  En låt kan ha flera artister, så id_artists i tracks delas upp till en rad per artist.
+- Kontrollerat kopplingen mellan tracks och artists: ca 20 000 artistkopplingar saknas
+  i artists.csv, men bland låtar med popularitet ≥ 50 berörs bara 440 (0,6 %).
