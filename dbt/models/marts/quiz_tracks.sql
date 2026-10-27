@@ -1,3 +1,6 @@
+-- quiz_tracks: one row per track with artists, year, broad genres and album.
+-- This is the table the quiz agent reads from.
+
 with
     stg_albums as (select * from {{ ref('stg_albums') }}),
     stg_artists as (select * from {{ ref('stg_artists') }}),
@@ -5,17 +8,26 @@ with
     stg_track_artists as (select * from {{ ref('stg_track_artists') }}),
     genre_mapping as (select * from {{ ref('genre_mapping') }}),
 
-    -- 1. en rad per artist och sub-genre
+    -- 1. One row per artist and sub-genre.
+    -- artist_genre is stored as text like "['dance pop', 'pop']",
+    -- so parse_list turns it into a real list before unnesting.
+    -- Hyphens are replaced so "hip-hop" matches the keyword "hip hop".
     artist_genres as (
         select
             a.artist_id,
             g.sub_genre,
             lower(replace(g.sub_genre, '-', ' ')) as genre_normalized
         from stg_artists a,
-            unnest(a.artist_genre) as g(sub_genre)
+            unnest({{ parse_list('a.artist_genre') }}) as g(sub_genre)
+        -- Artists without any genre are left out here.
+        where a.artist_genre <> 'Missing genre'
     ),
 
-    -- 2. slå upp main_genre i seeden, en träff per sub-genre
+    -- 2. Map each sub-genre to a main genre using the seed.
+    -- A sub-genre can match several keywords (e.g. "pop rock" matches
+    -- both "pop" and "rock"), so we keep the match with the lowest
+    -- priority number, and the longest keyword if priorities are equal.
+    -- Sub-genres with no match become 'other'.
     artist_genres_mapped as (
         select
             ag.artist_id,
@@ -30,26 +42,38 @@ with
         ) = 1
     ),
 
-    -- 3. tillbaka till en rad per artist
+    -- 3. Back to one row per artist, with a list of main genres.
+    -- 'other' is only kept when the artist has no real main genre.
     artist_main_genres as (
         select
             artist_id,
-            list(distinct main_genre) as main_genres
+            coalesce(
+                list(distinct main_genre) filter (where main_genre <> 'other'),
+                ['other']
+            ) as main_genres
         from artist_genres_mapped
         group by artist_id
     )
 
+-- 4. Join tracks with their artists, genres and album,
+-- then collapse to one row per track.
+-- Tracks without a matching artist are dropped by the inner joins.
 select
     t.track_id,
     t.track_name,
+    t.release_year,
     t.track_popularity,
-    ar.artist_name,
-    ar.artist_popularity,
-    amg.main_genres,
-    ar.artist_genre as sub_genres,
-    al.album
+    -- A track can have several artists: combine their names.
+    string_agg(distinct ar.artist_name, ', ') as artist_names,
+    -- The most popular artist on the track.
+    max(ar.artist_popularity) as artist_popularity,
+    -- Main genres from the seed, merged across all artists on the track.
+    list_distinct(flatten(list(amg.main_genres))) as genres,
+    -- dataset.csv has at most one album per track after staging.
+    any_value(al.album) as album
 from stg_tracks t
-left join stg_track_artists ta on t.track_id = ta.track_id
-left join stg_artists ar on ta.artist_id = ar.artist_id
+join stg_track_artists ta on t.track_id = ta.track_id
+join stg_artists ar on ta.artist_id = ar.artist_id
 left join artist_main_genres amg on ar.artist_id = amg.artist_id
 left join stg_albums al on t.track_id = al.track_id
+group by t.track_id, t.track_name, t.release_year, t.track_popularity

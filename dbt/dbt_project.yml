@@ -11,3 +11,7 @@ models:
     marts:
       +schema: marts
       +materialized: table
+
+seeds:
+  musicquiz:
+    +schema: seeds
