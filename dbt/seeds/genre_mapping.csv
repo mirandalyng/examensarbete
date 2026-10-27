@@ -1,42 +1,42 @@
-genre_keyword,main_genre
-pop,pop
-rock,rock
-hip hop,hip hop
-rap,hip hop
-drill,hip hop
-house,electronic
-edm,electronic
-electro,electronic
-rawstyle,electronic
-latin,latin
-mexican,latin
-corrido,latin
-ranchera,latin
-norteno,latin
-banda,latin
-sierreno,latin
-cumbia,latin
-mpb,brazilian
-pagode,brazilian
-bossa nova,brazilian
-forro,brazilian
-samba,brazilian
-axe,brazilian
-soundtrack,soundtrack
-show tunes,soundtrack
-movie tunes,soundtrack
-hollywood,soundtrack
-broadway,soundtrack
-scorecore,soundtrack
-jazz,jazz
-metal,metal
-country,country
-r&b,r&b
-soul,soul
-folk,folk
-indie,indie
-punk,punk
-reggae,reggae
-blues,blues
-classical,classical
-funk,funk
+genre_keyword,main_genre,priority
+metal,metal,1
+punk,punk,2
+hip hop,hip hop,3
+rap,hip hop,3
+drill,hip hop,3
+house,electronic,4
+edm,electronic,4
+electro,electronic,4
+rawstyle,electronic,4
+latin,latin,5
+mexican,latin,5
+corrido,latin,5
+ranchera,latin,5
+norteno,latin,5
+banda,latin,5
+sierreno,latin,5
+cumbia,latin,5
+mpb,brazilian,6
+pagode,brazilian,6
+bossa nova,brazilian,6
+forro,brazilian,6
+samba,brazilian,6
+axe,brazilian,6
+soundtrack,soundtrack,7
+show tunes,soundtrack,7
+movie tunes,soundtrack,7
+hollywood,soundtrack,7
+broadway,soundtrack,7
+scorecore,soundtrack,7
+jazz,jazz,8
+country,country,9
+r&b,r&b,10
+soul,soul,11
+funk,funk,12
+reggae,reggae,13
+blues,blues,14
+classical,classical,15
+folk,folk,16
+indie,indie,17
+rock,rock,18
+pop,pop,19

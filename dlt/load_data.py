@@ -9,7 +9,7 @@ DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "raw"
 def csv_resource(table: str, filename: str):
     @dlt.resource(name=table, write_disposition="replace")
     def read_data():
-        for chunk in pd.read_csv(DATA_PATH / filename, chunksize=50_000):
+        for chunk in pd.read_csv(DATA_PATH / filename, chunksize=50_000, encoding="utf-8"):
             yield chunk
     return read_data
 

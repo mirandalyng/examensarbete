@@ -245,3 +245,5 @@ Thumbs.db
 # Duckdb
 warehouse.duckdb
 *duckdb.wal
+.user.yml
+*user.yml
