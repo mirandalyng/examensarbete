@@ -1,10 +1,13 @@
 ## Här skriver vi vad som gjorts under dagen.
 
 ```md
-Datum - Rubrik
-Medverkande:
-Beskrivning:
-Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
+### Datum - Rubrik
+
+#### Medverkande:
+
+#### Beskrivning:
+
+#### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
 ```
 
 ### 6/10 - Setup av github projects och gruppkontakt
@@ -110,3 +113,25 @@ uv run dbt --select {model_name}
 
 kör seed:
 dbt seed
+
+---
+
+### 3/11 - 26 - Updating Mart, dbt-testing,
+
+#### Medverkande: Lisa, Rickard, Miranda
+
+#### Beskrivning:
+
+- gjort ett dokument för källor (sources.md)
+
+  **Mart**
+
+- popularity 50-30
+- Release year >= 1950
+
+**Dbt-testing**
+
+- Tester för unique och not null
+- Relationships i track_artists
+
+#### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
