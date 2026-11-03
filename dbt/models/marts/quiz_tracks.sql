@@ -59,7 +59,8 @@ with
 -- then collapse to one row per track.
 -- Tracks without a matching artist are dropped by the inner joins.
     quiz_tracks_raw as(
-        select
+        select        
+            concat('https://open.spotify.com/embed/track/',t.track_id) as spotify_url, 
             t.track_id,
             t.track_name,
             t.release_year,
