@@ -1,13 +1,8 @@
 import pandas as pd
 from pathlib import Path
+from load_df import load_tracks
 
-PARQUET = Path("../data/serving/mart.parquet")
-
-
-def load_tracks() -> pd.DataFrame:
-    """Read the whole parquete file."""
-    return pd.read_parquet(PARQUET)
-
+df = load_tracks()
 
 # DECADES
 def get_decades(df: pd.DataFrame) -> list[int]:
