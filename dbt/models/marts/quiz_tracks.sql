@@ -81,21 +81,21 @@ with
     )
 
 
-select count(*)
+select *
 from quiz_tracks_raw
 where {{ is_latin_text('track_name') }}
   and {{ is_latin_text('artist_names') }}
   and (album is null or {{ is_latin_text('album') }})
   and (
-    (artist_popularity > 50 and track_popularity > 20)
+    (artist_popularity > 50 and track_popularity > 30)
     or 
-    (track_popularity > 50 and artist_popularity > 20)
+    (track_popularity > 50 and artist_popularity > 30)
   )
+  and release_year >= 1950
 
--- total rows 233,688k 
---   and artist_popularity > 50 and track_popularity > 20
---   or track_popularity > 50 and artist_popularity > 20
+-- total rows 181500  
+--   and artist_popularity > 50 and track_popularity > 30
+--   or track_popularity > 50 and artist_popularity > 30
+-- and release_year >= 1950
 
--- total 83k 
---  and artist_popularity > 60 and track_popularity > 40
---   or track_popularity > 60 and artist_popularity > 40
+
