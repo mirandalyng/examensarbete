@@ -64,6 +64,7 @@ with
             t.track_id,
             t.track_name,
             t.release_year,
+            (t.release_year // 10) * 10 as decade,
             t.track_popularity,
             -- A track can have several artists: combine their names.
             string_agg(distinct ar.artist_name, ', ') as artist_names,
