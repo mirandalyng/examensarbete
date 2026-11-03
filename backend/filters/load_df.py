@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-PARQUET = Path("../data/serving/mart.parquet")
+PARQUET = Path("../../data/serving/mart.parquet")
 
 
 def load_tracks() -> pd.DataFrame:

@@ -1,9 +1,9 @@
 import pandas as pd
-from load_df import load_tracks
 
-df = load_tracks()
 
 # No genre selected (None) -> no filtering, return all tracks
+
+
 def filter_by_genre(df: pd.DataFrame, genres: str | list[str]) -> pd.DataFrame:
     if genres is None:
         return df

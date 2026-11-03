@@ -1,8 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from load_df import load_tracks
 
-df = load_tracks()
 
 # DECADES
 def get_decades(df: pd.DataFrame) -> list[int]:
