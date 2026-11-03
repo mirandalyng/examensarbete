@@ -37,19 +37,17 @@ Vi använder Git för versionshantering och GitHub för repository, Pull Request
 
 Kontrollera din egen e-post med `git config user.email`. Lägg **inte** till dig själv som co-author, bara de andra du jobbat med.
 
-| Namn             | E-post                  |
-| ---------------- | ----------------------- |
-| Miranda Lyng     | lyngmiranda@gmail.com   |
-| Lisa Yllander    | lisaylander92@gmail.com |
-| Alexandra Kaktus | aurabyte.dev@gmail.com  |
-| Rickard Garnau   | rickardgarnau@gmail.com |
+| Namn           | E-post                  |
+| -------------- | ----------------------- |
+| Miranda Lyng   | lyngmiranda@gmail.com   |
+| Lisa Yllander  | lisaylander92@gmail.com |
+| Rickard Garnau | rickardgarnau@gmail.com |
 
 Kopiera de rader du behöver:
 
 ```text
 Co-authored-by: Miranda Lyng <lyngmiranda@gmail.com>
 Co-authored-by: Lisa Yllander <lisaylander92@gmail.com>
-Co-authored-by: Alexandra Kaktus <aurabyte.dev@gmail.com>
 Co-authored-by: Rickard Garnau <rickardgarnau@gmail.com>
 ```
 

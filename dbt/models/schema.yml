@@ -1,0 +1,51 @@
+# Dbt testing
+models:
+  # Albums
+  - name: stg_albums
+    columns:
+      - name: track_id
+        data_tests:
+          - unique
+          - not_null
+
+  # Artists
+  - name: stg_artist
+    columns:
+      - name: artist_id
+        data_tests:
+          - unique
+          - not_null
+      - name: artist_genre
+        data_tests:
+          - not_null
+
+  # Tracks
+  - name: stg_tracks
+    columns:
+      - name: track_id
+        data_tests:
+          - unique
+          - not_null
+
+  # Track artists
+  - name: stg_track_artists
+    columns:
+      - name: track_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('tracks')
+                field: track_id
+      - name: artist_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('tracks')
+                field: artist_id
+
+  # Mart
+  - name: quiz_tracks
+    columns:
+      - name: album
+        data_tests:
+          - not_null
