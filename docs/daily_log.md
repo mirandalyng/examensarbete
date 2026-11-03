@@ -116,7 +116,7 @@ dbt seed
 
 ---
 
-### 3/11 - 26 - Updating Mart, dbt-testing,
+### 3/11 - 26 - Updating Mart, dbt-testing. Filter för genre, årtionde
 
 #### Medverkande: Lisa, Rickard, Miranda
 
@@ -128,10 +128,19 @@ dbt seed
 
 - popularity 50-30
 - Release year >= 1950
+- lagt till kolumn 'decade'
 
 **Dbt-testing**
 
 - Tester för unique och not null
 - Relationships i track_artists
 
+**Filters**
+- årtionde
+- genre
+
 #### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
+- backend/filters
+- dbt/models/mart 
+
+ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
