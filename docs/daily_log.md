@@ -136,11 +136,22 @@ dbt seed
 - Relationships i track_artists
 
 **Filters**
+
 - årtionde
 - genre
 
+**Randomize**
+
+- randomize låtar baserat på filterad dataframe från årtione och genre
+
+**Antal låtar**
+
+- antal låtar som användaren vill ha
+- här läses random, filter årtionde och filter genre in
+
 #### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
+
 - backend/filters
-- dbt/models/mart 
+- dbt/models/mart
 
 ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
