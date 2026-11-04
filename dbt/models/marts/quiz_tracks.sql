@@ -62,6 +62,7 @@ with
         select        
             concat('https://open.spotify.com/embed/track/',t.track_id) as spotify_url, 
             t.track_id,
+            ar.artist_id,
             t.track_name,
             t.release_year,
             (t.release_year // 10) * 10 as decade,
@@ -79,7 +80,7 @@ with
         join stg_artists ar on ta.artist_id = ar.artist_id
         left join artist_main_genres amg on ar.artist_id = amg.artist_id
         left join stg_albums al on t.track_id = al.track_id
-        group by t.track_id, t.track_name, t.release_year, t.track_popularity
+        group by t.track_id, t.track_name, t.release_year, t.track_popularity, ar.artist_id
     )
 
 
