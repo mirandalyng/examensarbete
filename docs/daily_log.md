@@ -156,4 +156,19 @@ dbt seed
 
 ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 
-----
+---
+
+### 5 nov - Testing with vector embedding in lanceDB
+
+#### Medverkande: Miranda
+
+#### Beskrivning:
+
+- Testade quick setup från lanceDB dokumentation
+- sentence-transformers används som provider för att skapa vector embeddings
+- lancedb databas skapas
+- test med ai - hjälp för att se om den kan hitta med hjälp av vector - sökning
+
+#### Information:
+
+- I mappen eda ligger en lance_db mapp.

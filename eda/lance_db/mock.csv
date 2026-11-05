@@ -1,0 +1,11 @@
+artist_id,artist,song_id,song_title,genre,release_year,country,description
+1,ABBA,101,Dancing Queen,pop,1976,Sverige,"Glittrig discolåt om att dansa och känna sig fri en lördagskväll."
+2,Roxette,102,The Look,pop rock,1988,Sverige,"Energisk poprocklåt med ett catchy och rytmiskt sväng."
+3,Avicii,103,Wake Me Up,elektronisk dans,2013,Sverige,"Dansmusik som blandar folkinspirerad gitarr med elektroniska beats."
+4,Robyn,104,Dancing On My Own,electropop,2010,Sverige,"Känslosam danslåt om att se någon man älskar med en annan."
+5,Håkan Hellström,105,Känn ingen sorg för mig Göteborg,pop rock,2005,Sverige,"Svensk kärleksförklaring till staden Göteborg med mycket känsla."
+6,Queen,106,Bohemian Rhapsody,rock,1975,Storbritannien,"Episk rocklåt i flera delar med opera och dramatiska gitarrer."
+7,Adele,107,Hello,pop soul,2015,Storbritannien,"Kraftfull ballad om att ta kontakt med någon man lämnat bakom sig."
+8,Daft Punk,108,Get Lucky,disco elektronisk,2013,Frankrike,"Funkig och dansant låt med disco-känsla och mjuka syntar."
+9,Billie Eilish,109,bad guy,electropop,2019,USA,"Minimalistisk och mörk popsång med tung bas och lekfull attityd."
+10,Bob Marley & The Wailers,110,"No Woman, No Cry",reggae,1974,Jamaica,"Lugn reggaelåt om tröst och hopp i svåra tider."
