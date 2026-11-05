@@ -155,3 +155,5 @@ dbt seed
 - dbt/models/mart
 
 ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
+
+----
