@@ -18,7 +18,7 @@ database locally: uri is the name of the searchroot on the
 folder where lancedb will save the files.
 """
 
-DB_PATH = Path(__file__).parent / "data" / "music_quiz"
+DB_PATH = Path(__file__).parent / "music_quiz"
 db = lancedb.connect(uri=str(DB_PATH))
 
 
