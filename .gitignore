@@ -247,3 +247,7 @@ warehouse.duckdb
 *duckdb.wal
 .user.yml
 *user.yml
+
+# Lancedb
+music_quiz/
+*.lance/
