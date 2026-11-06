@@ -62,7 +62,7 @@ with
         select        
             concat('https://open.spotify.com/embed/track/',t.track_id) as spotify_url, 
             t.track_id,
-            ar.artist_id,
+            arg_max(ar.artist_id, ar.artist_popularity) as artist_id, 
             t.track_name,
             t.release_year,
             (t.release_year // 10) * 10 as decade,
@@ -80,11 +80,11 @@ with
         join stg_artists ar on ta.artist_id = ar.artist_id
         left join artist_main_genres amg on ar.artist_id = amg.artist_id
         left join stg_albums al on t.track_id = al.track_id
-        group by t.track_id, t.track_name, t.release_year, t.track_popularity, ar.artist_id
+        group by t.track_id, t.track_name, t.release_year, t.track_popularity
     )
 
 
-select *
+select count(*)
 from quiz_tracks_raw
 where {{ is_latin_text('track_name') }}
   and {{ is_latin_text('artist_names') }}
@@ -95,6 +95,11 @@ where {{ is_latin_text('track_name') }}
     (track_popularity > 50 and artist_popularity > 30)
   )
   and release_year >= 1950
+
+  -- Exclude remasters (match on the stem so "Remaster" and "Remastered" both hit)
+  and not regexp_matches(lower(coalesce(track_name, '')), 'remaster')
+
+-- total rows 173964
 
 -- total rows 181500  
 --   and artist_popularity > 50 and track_popularity > 30

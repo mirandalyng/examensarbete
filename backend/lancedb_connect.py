@@ -2,9 +2,11 @@
 
 import pandas as pd
 from pathlib import Path
-import lancedb # The main database connection and operations
-from lancedb.pydantic import LanceModel, Vector # LanceModel: Pydantic model for defining table schemas. Vector: Field type for storing vector embeddings
-from lancedb.embeddings import  get_registry #get_registry(): Access to the embedding function registry. It has all the supported as well as custom embedding functions registered by the user
+import lancedb  # The main database connection and operations
+# LanceModel: Pydantic model for defining table schemas. Vector: Field type for storing vector embeddings
+from lancedb.pydantic import LanceModel, Vector
+# get_registry(): Access to the embedding function registry. It has all the supported as well as custom embedding functions registered by the user
+from lancedb.embeddings import get_registry
 
 # Create path and read parquet file
 ROOT = Path(__file__).resolve().parent.parent   # examensarbete/
@@ -26,6 +28,7 @@ This creates an embedding function from the local embedding registry.
 The Python snippet uses the sentence-transformers provider with the BGE model; 
 the TypeScript snippet uses the Transformers-backed huggingface provider
 """
+
 
 model = get_registry().get("sentence-transformers").create(
     name="sentence-transformers/static-similarity-mrl-multilingual-v1"
@@ -63,11 +66,10 @@ class Quiz(LanceModel):
 
     # search vector is created from the text that is put togetgher search text
     search_text: str = model.SourceField()
-    # model.ndims() asks the model how many number/dimensions that will be in the vector 
+    # model.ndims() asks the model how many number/dimensions that will be in the vector
     vector: Vector(model.ndims()) = model.VectorField()
 
 
 """ ---- Create table and ingest data ---- """
 # use mode = "overwrite" if anything changes in the dataset
-quiz_table = db.create_table("quiz", schema=Quiz, data= df)
-
+quiz_table = db.create_table("quiz", schema=Quiz, data=df, mode="overwrite")

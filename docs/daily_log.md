@@ -179,8 +179,22 @@ ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 
 #### Medverkande: Lisa, Rickard, Miranda
 
-#### Beskrivning: Testat skapa vektor embeddings med våran data i ipynb först och sedan i .py
+#### Beskrivning:
 
-#### Information: - 
+- Testat skapa vektor embeddings med våran data i ipynb först och sedan i .py
+- Börja testa streamlit med datan
+- Ändrat så att artist id inte tar med dubletter, samt tar bort låttitlar som har med 'Remasterd' då det ger felaktiga dubletter
+- Möte med Kokchun
+
+#### Information: -
+
 - eda/lance_db
 - backend/lancedb_connect.py
+
+#### To Do / Nästa steg
+
+- Performance (varför tar det så långt tid, dock kanske testa api först)
+- API - endpoints osv med fastAPI för att separera frond-och-backend
+- Börja med Agenten och Vector-sök (som ett verktyg) / RAG
+
+- OPTIMERING: polars/ pandas + duckdb?
