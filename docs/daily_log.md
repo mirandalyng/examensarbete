@@ -172,3 +172,15 @@ ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 #### Information:
 
 - I mappen eda ligger en lance_db mapp.
+
+---
+
+### 6/11 - Skapa vektor embedding i Lancedb
+
+#### Medverkande: Lisa, Rickard, Miranda
+
+#### Beskrivning: Testat skapa vektor embeddings med våran data i ipynb först och sedan i .py
+
+#### Information: - 
+- eda/lance_db
+- backend/lancedb_connect.py
