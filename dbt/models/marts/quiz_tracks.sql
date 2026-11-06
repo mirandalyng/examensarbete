@@ -84,7 +84,7 @@ with
     )
 
 
-select count(*)
+select *
 from quiz_tracks_raw
 where {{ is_latin_text('track_name') }}
   and {{ is_latin_text('artist_names') }}
