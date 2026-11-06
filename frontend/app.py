@@ -14,11 +14,6 @@ df = get_data()
 
 list_decades = get_decades(df)
 
-
-# Dataframe
-st.dataframe(df)
-
-
 selected_decades = st.multiselect(
     "Select decade",
     options=[dec for dec in list_decades],
@@ -28,3 +23,6 @@ selected_decades = st.multiselect(
 st.write("valda:", selected_decades, "dtype:", df["decade"].dtype)
 filtered_df = filter_by_decades(df, selected_decades)
 st.write("rader efter filter:", len(filtered_df), "av", len(df))
+
+# Dataframe
+st.dataframe(filtered_df)
