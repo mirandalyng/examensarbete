@@ -198,3 +198,11 @@ ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 - Börja med Agenten och Vector-sök (som ett verktyg) / RAG
 
 - OPTIMERING: polars/ pandas + duckdb?
+
+#### Fråga till gruppen: fritext eller bara filter?
+
+- Vektorerna i `quiz`-tabellen används bara om användaren kan skriva fritext, t.ex. "hårdrock" eller "glad sommarmusik", och agenten söker med ett verktyg (`search_tracks`).
+- Bygger vi inte fritext används de inte till något. Filtren behöver dem inte, och följdfrågorna med Wikipedia behöver egna vektorer i en annan tabell.
+- Med nuvarande `search_text` (titel, artist, genre, album) fungerar sök på genre och namn, inte på stämning. För "glad" eller "lugn" behöver vi `valence`/`energy` från tracks.csv som ord i `search_text`.
+- Fritext står i dag under "Vad är inte MVP" i projektplanen.
+- Beslut behövs: ska fritext med i MVP, senare, eller inte alls?
