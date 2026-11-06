@@ -1,10 +1,7 @@
-from filter_decades import filter_by_decades
-from filter_genres import filter_by_genre
-from randomize import randomize
-from load_df import load_tracks
+from frontend.utils.filter_decades import filter_by_decades
+from frontend.utils.filter_genres import filter_by_genre
+from frontend.utils.randomize import randomize
 import pandas as pd
-
-df = load_tracks()
 
 
 def num_of_tracks(df, count, decades=None, genres=None, seed=None) -> pd.DataFrame:
