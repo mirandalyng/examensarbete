@@ -43,15 +43,14 @@ with
     ),
 
     -- 3. Back to one row per artist, with a list of main genres.
-    -- 'other' is only kept when the artist has no real main genre.
+    -- 'other' is dropped. Artists with only 'other' get no row at all,
+    -- so their tracks get genres = NULL and are filtered out at the end.
     artist_main_genres as (
         select
             artist_id,
-            coalesce(
-                list(distinct main_genre) filter (where main_genre <> 'other'),
-                ['other']
-            ) as main_genres
+                list(distinct main_genre) as main_genres
         from artist_genres_mapped
+        where main_genre <> 'other'
         group by artist_id
     ), 
 
@@ -63,10 +62,14 @@ with
             concat('https://open.spotify.com/embed/track/',t.track_id) as spotify_url, 
             t.track_id,
             arg_max(ar.artist_id, ar.artist_popularity) as artist_id, 
-            t.track_name,
-            t.release_year,
-            (t.release_year // 10) * 10 as decade,
-            t.track_popularity,
+            any_value(t.track_name) as track_name,
+            -- Title without suffixes such as "(Radio Edit)" or "- Live at ...".
+            -- Used only to find the same song under different track_ids.
+            trim(regexp_replace(any_value(t.track_name),
+            '\s*(\(.*\)|\[.*\]|\s-\s.*)$', '')) as title_normalized,
+            min(t.release_year) as release_year,
+            min(t.release_year // 10) * 10 as decade,
+            max(t.track_popularity) as track_popularity,
             -- A track can have several artists: combine their names.
             string_agg(distinct ar.artist_name, ', ') as artist_names,
             -- The most popular artist on the track.
@@ -80,30 +83,47 @@ with
         join stg_artists ar on ta.artist_id = ar.artist_id
         left join artist_main_genres amg on ar.artist_id = amg.artist_id
         left join stg_albums al on t.track_id = al.track_id
-        group by t.track_id, t.track_name, t.release_year, t.track_popularity
-    )
+        group by t.track_id
+    ),
 
+-- 5. Quality filters.
+filtered as (
+    select * 
+    from quiz_tracks_raw 
+    where {{ is_latin_text('track_name') }}
+        and {{ is_latin_text('artist_names') }}
+        and (album is null or {{ is_latin_text('album') }})
+        and (
+            (artist_popularity > 50 and track_popularity > 30)
+            or 
+            (track_popularity > 50 and artist_popularity > 30)
+        )
+        and release_year >= 1950
 
-select *
-from quiz_tracks_raw
-where {{ is_latin_text('track_name') }}
-  and {{ is_latin_text('artist_names') }}
-  and (album is null or {{ is_latin_text('album') }})
-  and (
-    (artist_popularity > 50 and track_popularity > 30)
-    or 
-    (track_popularity > 50 and artist_popularity > 30)
-  )
-  and release_year >= 1950
+        -- only tracks with a real main genre (no 'other')
+        and genres is not null
+        and len(genres) > 0
 
-  -- Exclude remasters (match on the stem so "Remaster" and "Remastered" both hit)
-  and not regexp_matches(lower(coalesce(track_name, '')), 'remaster')
+        -- Exclude special versions (remaster, live, radio edit, remix ...).
+        -- Bare words use \b so e.g. "Demon" or "Club Tropicana" survive.
+        and not regexp_matches(
+            lower(coalesce(track_name, '')),
+            'remaster'
+            || '|\(live|\[live|- live|live at|live from|live in'
+            || '|radio (edit|mix|version)|single (edit|version)|album version'
+            || '|\b(extended|instrumental|acoustic|demo|mono|stereo|karaoke|remix)\b'
+            || '|\b(club|original) mix\b'
+            || '|\(.*(edit|mix|version).*\)'
+        )
+)
 
--- total rows 173964
+select * exclude (title_normalized)
+from filtered
+qualify row_number() over (
+    partition by title_normalized, artist_names
+    order by release_year asc, track_popularity desc
+) = 1
 
--- total rows 181500  
---   and artist_popularity > 50 and track_popularity > 30
---   or track_popularity > 50 and artist_popularity > 30
--- and release_year >= 1950
+-- total rows 126605
 
 

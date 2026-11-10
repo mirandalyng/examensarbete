@@ -11,7 +11,7 @@ from lancedb.embeddings import get_registry
 # Create path and read parquet file
 ROOT = Path(__file__).resolve().parent.parent   # examensarbete/
 DATA_PATH = ROOT / "data" / "serving"
-df = pd.read_parquet(DATA_PATH / "data" / "mart.parquet")
+df = pd.read_parquet(DATA_PATH / "mart.parquet")
 
 """ ---- Connect to LanceDB ---- 
 database locally: uri is the name of the searchroot on the 
