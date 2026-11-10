@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT_PATH = Path(__file__).resolve().parents[2] / "backend" / "data"
+ROOT_PATH = Path(__file__).resolve().parents[2] / "backend"
 
 
 def load_lancedb() -> pd.DataFrame:
@@ -12,5 +12,9 @@ def load_lancedb() -> pd.DataFrame:
     db = lancedb.connect(ROOT_PATH / "music_quiz")
     # read in lancedb file
     table = db.open_table("quiz")
-    # convert it to dataframe in pandas to be able to call it in our filter functions
-    return table.to_pandas()
+
+    # Drop the vector column before it reaches Streamlit.
+    # Filters only need decade/genres, and the vectors (~780 MB) made
+    # st.cache_data's copy on every rerun slow.
+    # Vector search still works: table.search() reads the vectors from LanceDB.
+    return table.to_pandas().drop(columns=["vector"])

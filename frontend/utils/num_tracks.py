@@ -1,6 +1,6 @@
-from frontend.utils.filter_decades import filter_by_decades
-from frontend.utils.filter_genres import filter_by_genre
-from frontend.utils.randomize import randomize
+from utils.filter_decades import filter_by_decades
+from utils.filter_genres import filter_by_genre
+from utils.randomize import randomize
 import pandas as pd
 
 
