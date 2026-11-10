@@ -3,13 +3,13 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT_PATH = Path(__file__).resolve().parents[2] / "backend"
+DB_PATH = Path(__file__).resolve().parent / "data" / "music_quiz"
 
 
 def load_lancedb() -> pd.DataFrame:
     # connect to lancedb
 
-    db = lancedb.connect(ROOT_PATH / "music_quiz")
+    db = lancedb.connect(DB_PATH)
     # read in lancedb file
     table = db.open_table("quiz")
 
