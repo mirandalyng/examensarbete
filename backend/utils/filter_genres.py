@@ -1,6 +1,10 @@
 import pandas as pd
 
 
+def get_genres(df: pd.DataFrame) -> list[str]:
+    """Alla genres som finns i datan, sorterade (till selectbox/multiselect)."""
+    return sorted(df["genres"].explode().dropna().unique().tolist())
+
 # No genre selected (None) -> no filtering, return all tracks
 
 

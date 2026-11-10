@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 
-DB_PATH = Path(__file__).resolve().parent / "data" / "music_quiz"
+DB_PATH = Path(__file__).resolve().parent / "music_quiz"
 
 
 def load_lancedb() -> pd.DataFrame:
