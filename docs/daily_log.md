@@ -218,3 +218,51 @@ ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 #### Information:
 
 - i app.py i frontend ska ALLA importer och dess kommentarer till behållas för att sökvägen ska fungera. Denna ordning måste vara så. Den ändrar orning utan kommentarerna.
+
+---
+
+### 10/11 - städning i marten och repo, skapa endpoint och testa i Swagger UI, bygga funktioner och testa filtrering i frontend (streamlit)
+
+#### Medverkande: Miranda, Rickard, Lisa
+
+#### Beskrivning: 
+##### Mart:
+- filtrering/städning i marten - ta bort remixer, live-versioner, dubbletter i track_name
+- kasta låtar med genre 'other' 
+
+##### Städning i repo:
+- flytta om mappar och ändra sökvägar 
+
+##### Skapa endpoint och testa i fastapi (swagger UI)
+- i backend/api.py - skapat get endpoint för filtrering av genres, årtionden och antal låtar (med randomize)
+
+##### Frontend
+- skapa funktion för att testa filter i streamlit med requests
+
+#### Information: 
+##### För att köra om mart - parquet-filen och lancedb:
+```bash
+cd dbt
+uv run dbt run
+cd piplines
+uv run export_mart.py
+cd backend
+uv run lancedb_conn_vectorembeddings.py
+uv run load_lancedb.py
+```
+
+##### För att testa i swagger ui:
+```bash 
+cd backend
+uv run uvicorn api:app --reload
+```
+
+##### För att testa i streamlit:
+```bash 
+cd frontend
+uv run streamlit run app.py
+```
+
+
+
+
