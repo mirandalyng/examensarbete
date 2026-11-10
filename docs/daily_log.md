@@ -206,3 +206,15 @@ ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 - Med nuvarande `search_text` (titel, artist, genre, album) fungerar sök på genre och namn, inte på stämning. För "glad" eller "lugn" behöver vi `valence`/`energy` från tracks.csv som ord i `search_text`.
 - Fritext står i dag under "Vad är inte MVP" i projektplanen.
 - Beslut behövs: ska fritext med i MVP, senare, eller inte alls?
+
+### 10/11 ""
+
+#### Medverkande: Lisa, Rickard, Miranda
+
+#### Beskrivning:
+
+- Flyttade frontend-filer til backend och ändrat sökvägar för att det ska fungera i streamlit
+
+#### Information:
+
+- i app.py i frontend ska ALLA importer och dess kommentarer till behållas för att sökvägen ska fungera. Denna ordning måste vara så. Den ändrar orning utan kommentarerna.

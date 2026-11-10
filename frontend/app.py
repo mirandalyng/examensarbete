@@ -1,8 +1,15 @@
-import streamlit as st
-from utils.lancedb_conn import load_lancedb
-from utils.filter_decades import filter_by_decades, get_decades
 
-# loads lancedb file
+#############
+# imports and comments underneith must be in this order for the search paths to work!
+###########
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import streamlit as st  # noqa: E402
+from backend.load_lancedb import load_lancedb  # noqa: E402  # isort: skip
+from utils.filter_decades import filter_by_decades, get_decades  # noqa: E402  # isort: skip
 
 
 @st.cache_data
