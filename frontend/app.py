@@ -44,26 +44,39 @@ def fetch_tracks(count: int, decades: list[int], genres: list[str]) -> list[dict
 
     return tracks.json()
 
+
+def fetch_followups(tracks: list[dict]) -> list[dict]:
+    r = requests.post(f"{API_URL}/generated_quiz", json=tracks)
+    if not r.ok:
+        st.error(f"{r.status_code}: {r.text}")
+        st.stop()
+    return r.json()
+
+
 # Main function to display the quiz
-
-
 def display_quiz():
-    st.markdown("# Welcome!")
 
+    st.markdown("# Welcome!")
     count, decades, genres = filters()
 
     if st.button("Generate Quiz"):
         tracks = fetch_tracks(count, decades, genres)
 
         if not tracks:
+            st.session_state.pop("tracks", None)
+            st.session_state.pop("followups", None)
             st.warning("No tracks matches filter, try something else")
         else:
             st.session_state["tracks"] = tracks
+            st.session_state["followups"] = fetch_followups(tracks)
 
+    # Visas vid varje rerun så länge data finns sparad
     if "tracks" in st.session_state:
-        tracks = st.session_state["tracks"]
+        st.dataframe(st.session_state["tracks"])
 
-        st.dataframe(tracks)
+    if "followups" in st.session_state:
+        for q in st.session_state["followups"]:
+            st.write(q)
 
 
 if __name__ == '__main__':
