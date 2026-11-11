@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
-# The structured data that the agent recives 
+
+# The structured data that the agent recives
 class MusicData(BaseModel):
     spotify_url: str
     artist_id: str
@@ -10,6 +11,9 @@ class MusicData(BaseModel):
     release_year: int
     decade: int
     album: str
+    artist_popularity: int
+    track_popularity: int
+
 
 # The structure for the followup questions
 class FollowUps(BaseModel):

@@ -1,12 +1,13 @@
+import pandas as pd
+from agent.agent import music_agent
+from agent.deps import MusicData
 from fastapi import FastAPI, HTTPException, Query
-from utils.filter_decades import filter_by_decades, get_decades
-from utils.filter_genres import get_genres, filter_by_genre
+from utils.filter_decades import get_decades
+from utils.filter_genres import get_genres
 from utils.num_tracks import num_of_tracks
-from load_lancedb import load_lancedb
-
 
 # load lancedb database
-df = load_lancedb()
+df = pd.read_parquet("../data/serving/mart.parquet")
 
 
 # count options for number of tracks
@@ -26,10 +27,11 @@ async def get_filters():
         "count": COUNT_OPTIONS,
     }
 
-# Enpoint for tracks
+
+# Endpoint for tracks
 
 
-@app.get("/tracks")
+@app.get("/tracks", response_model=list[MusicData])
 async def get_tracks(
     count: int = Query(20, ge=10, le=30),  # default 10
     decades: list[int] | None = Query(None),
@@ -42,3 +44,30 @@ async def get_tracks(
 
     result["genres"] = result["genres"].apply(list)
     return result.to_dict(orient="records")
+
+
+@app.post("/generated_quiz")
+async def generate_quiz(tracks: list[MusicData]):
+    if not tracks:
+        return []
+    tracks.sort(key=lambda x: (x.track_popularity + x.artist_popularity), reverse=True)
+
+    half_of_tracks = max(1, len(tracks) // 2)
+    popular_tracks = tracks[:half_of_tracks]
+
+    generated_quiz = []
+    for track in popular_tracks:
+        result = await music_agent.run(
+            f"Generate a follow-up question from this track: {track.model_dump()}",
+            deps=track,
+        )
+
+        generated_quiz.append(
+            {
+                "answer_artist": track.artist_names,
+                "answer_track": track.track_name,
+                "answer_followup_quistion": result.output.model_dump(),
+            }
+        )
+
+    return generated_quiz
