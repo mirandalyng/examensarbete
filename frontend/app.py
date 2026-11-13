@@ -70,13 +70,33 @@ def display_quiz():
             st.session_state["tracks"] = tracks
             st.session_state["followups"] = fetch_followups(tracks)
 
-    # Visas vid varje rerun så länge data finns sparad
-    if "tracks" in st.session_state:
-        st.dataframe(st.session_state["tracks"])
+    # # Visas vid varje rerun så länge data finns sparad
+    # if "tracks" in st.session_state:
+    #     st.dataframe(st.session_state["tracks"])
 
-    if "followups" in st.session_state:
-        for q in st.session_state["followups"]:
-            st.write(q)
+    # if "followups" in st.session_state:
+    #     for q in st.session_state["followups"]:
+#         st.write(q)
+
+    if "tracks" in st.session_state and "followups" in st.session_state:
+        for i, (t, followup) in enumerate(
+            zip(st.session_state["tracks"], st.session_state["followups"]),
+            start=1,
+        ):
+            artists = t["artist_names"]
+            if isinstance(artists, list):
+                artists = ", ".join(artists)
+
+            st.subheader(f"Question-{i}.")
+
+            st.iframe(t["spotify_url"], height=150)
+
+            st.markdown(followup["question"])
+            for op in followup["option"]:
+                st.markdown(f"- {op}")
+            with st.expander("Show correct answer"):
+                st.write(followup["correct_answer"])
+            st.divider()
 
 
 if __name__ == '__main__':
