@@ -2,15 +2,19 @@ from backend.agent.agent import music_agent
 from backend.agent.deps import MusicData
 import asyncio
 import logfire
+from agent.prompts import get_prompt
+
 
 # Connect to Logfire
-#logfire.configure()
-#logfire.instrument_system_metrics()
+# logfire.configure()
+# logfire.instrument_system_metrics()
 logfire.instrument_pydantic_ai()
+
 
 async def main(prompt: str, deps: MusicData):
     result = await music_agent.run(prompt, deps=deps)
     print(result.output)
+
 
 # Test
 if __name__ == "__main__":
@@ -26,4 +30,5 @@ if __name__ == "__main__":
         artist_popularity=80,
         track_popularity=85,
     )
-    asyncio.run(main("Skapa en följdfråga om vilka som är med i bandet.", test_track))
+    asyncio.run(
+        main("Skapa en följdfråga om vilka som är med i bandet.", test_track))
