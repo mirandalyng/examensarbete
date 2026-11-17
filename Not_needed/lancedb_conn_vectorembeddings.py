@@ -1,3 +1,5 @@
+# If needed: put back into backend folder
+
 """ Create vectors and connect to LanceDB """
 
 import pandas as pd
