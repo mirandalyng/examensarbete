@@ -251,3 +251,6 @@ warehouse.duckdb
 # Lancedb
 music_quiz/
 *.lance/
+
+# Logfire
+.logfire
