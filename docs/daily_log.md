@@ -355,3 +355,5 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - Agent: La till ett Wikipedia-verktyg (search_wikipedia i tools.py) så att agenten kan söka fakta innan den skriver en följdfråga. Det registreras via tools=[search_wikipedia] i agent.py.
 
 - Prompt: Ny prompt med roll, process (sök, välj ett bekräftat faktum, skriv frågan) och regler. Exakt 4 alternativ, aldrig artistnamn eller låttitel i frågan, svenska, fallback till metadata om inget hittas.
+
+- Påbörjat README och städat i projektet (lagt filer vi ej använder i 'Not_needed')
