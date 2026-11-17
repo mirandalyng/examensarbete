@@ -9,8 +9,10 @@ load_dotenv()
 logfire.configure(variables=VariablesOptions())
 
 # Fetches prompt from Logfire with given name and version (lable)
+
+
 def get_prompt(
-    name: str = "prompt_music_agent_instructions",
+    name: str = "music_agent_instructions",
     default: str = "music assistant",
     label: str = "latest"
 ):
@@ -24,7 +26,7 @@ def get_prompt(
     return resolved.value
 
 
-# Test: writes out production-version of prompt when file is run directly 
+# Test: writes out production-version of prompt when file is run directly
 if __name__ == "__main__":
     prompt = get_prompt(label="latest")
     print(prompt)
