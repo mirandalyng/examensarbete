@@ -16,6 +16,7 @@ dependencies = [
     "fastapi>=0.162.0",
     "ipykernel>=7.4.0",
     "lancedb>=0.40.0",
+    "logfire[system-metrics,variables]>=5.4.0",
     "matplotlib>=3.11.2",
     "pandas>=3.0.6",
     "pyarrow>=26.0.0",

@@ -998,6 +998,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "ipykernel" },
     { name = "lancedb" },
+    { name = "logfire", extra = ["system-metrics", "variables"] },
     { name = "matplotlib" },
     { name = "pandas" },
     { name = "pyarrow" },
@@ -1020,6 +1021,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.162.0" },
     { name = "ipykernel", specifier = ">=7.4.0" },
     { name = "lancedb", specifier = ">=0.40.0" },
+    { name = "logfire", extras = ["system-metrics", "variables"], specifier = ">=5.4.0" },
     { name = "matplotlib", specifier = ">=3.11.2" },
     { name = "pandas", specifier = ">=3.0.6" },
     { name = "pyarrow", specifier = ">=26.0.0" },
@@ -1848,6 +1850,12 @@ wheels = [
 httpx = [
     { name = "logfire-sdk", extra = ["httpx"] },
 ]
+system-metrics = [
+    { name = "logfire-sdk", extra = ["system-metrics"] },
+]
+variables = [
+    { name = "logfire-sdk", extra = ["variables"] },
+]
 
 [[package]]
 name = "logfire-api"
@@ -1883,6 +1891,13 @@ wheels = [
 [package.optional-dependencies]
 httpx = [
     { name = "opentelemetry-instrumentation-httpx" },
+]
+system-metrics = [
+    { name = "opentelemetry-instrumentation-system-metrics" },
+]
+variables = [
+    { name = "pydantic" },
+    { name = "pydantic-handlebars" },
 ]
 
 [[package]]
@@ -2595,6 +2610,21 @@ wheels = [
 ]
 
 [[package]]
+name = "opentelemetry-instrumentation-system-metrics"
+version = "0.66b1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "opentelemetry-api" },
+    { name = "opentelemetry-instrumentation" },
+    { name = "opentelemetry-semantic-conventions" },
+    { name = "psutil" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d6/81/ab8cabaf45c5248fa88a0d0d3acea4483c105d76cd6c849654ebdab16f92/opentelemetry_instrumentation_system_metrics-0.66b1.tar.gz", hash = "sha256:b0fccbc1aecf35c182431a035ec4809b8f9607eec692243cf70f23b3bda51231", size = 17207, upload-time = "2026-10-06T17:36:40.518Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a3/fd/ea072c512d65ba4054b02c8b7080cf1b362761d4727ee6c1f36dce53328d/opentelemetry_instrumentation_system_metrics-0.66b1-py3-none-any.whl", hash = "sha256:0654b41eb6db3c2f9ad9979487afcc6f461e5b35df282f0a11d0f465e906d967", size = 13913, upload-time = "2026-10-06T17:35:57.01Z" },
+]
+
+[[package]]
 name = "opentelemetry-proto"
 version = "1.45.1"
 source = { registry = "https://pypi.org/simple" }
@@ -3281,6 +3311,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/27/94/582df0fcc959694a6008adf34b166dd002c414981ae541eca3d134164637/pydantic_graph-2.65.0.tar.gz", hash = "sha256:51490fcdef0be5382fe589f7de2046ca46b1704884ad8b72522782d1e76d188d", size = 46463, upload-time = "2026-11-03T01:53:28.086Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4f/dd/31adda51684d126c342a1dba39cde6a21077d595932c72f61170dd9e6703/pydantic_graph-2.65.0-py3-none-any.whl", hash = "sha256:0cbd3be0e85327078c05e022d893675573ff9d8463087bd810e8f08fd094fde3", size = 53650, upload-time = "2026-11-03T01:53:16.008Z" },
+]
+
+[[package]]
+name = "pydantic-handlebars"
+version = "0.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/96/73/e55a1fe1a8788a5fa82d9209e796f4111e28f2d2fecab7173aa6d80516ad/pydantic_handlebars-0.2.1.tar.gz", hash = "sha256:d4124cfbf7d6e3bded9331a08ccccf6f29f3e3a93665b35b5d6061650aeeb49f", size = 176949, upload-time = "2026-05-25T01:24:38.354Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/55/11/364bc401f1d8fdb3947079fc43ffdfbfc9132d065981a03a95d2e87440c4/pydantic_handlebars-0.2.1-py3-none-any.whl", hash = "sha256:c713427d6498cf4b66814447d54753a2748f8a8d3a9f00c194192ddb3df61e52", size = 50476, upload-time = "2026-05-25T01:24:37.104Z" },
 ]
 
 [[package]]

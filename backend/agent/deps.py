@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, model_validator, Field
 
 
 # The structured data that the agent recives
@@ -15,10 +15,21 @@ class MusicData(BaseModel):
     track_popularity: int
 
 
-# The structure for the followup questions
+# The structure for the follow-up questions.
+# Some questions are multiple choice (with options), others are open
+# questions where the user types the answer (options is None).
 class FollowUps(BaseModel):
-    question: str = Field(description="Question about the song or artist."
-                          "Information is to be fetched from the internet. Do not include the right answer in the question.")
-    option: list[str] = Field(description="options can be 2-4.")
-    correct_answer: str = Field(
-        description="The correct answer of the questin. Must be included in the options.")
+    question: str
+    # Optional: None (or left out) means an open question without alternatives
+    options: list[str] | None = None
+    correct_answer: str
+
+    # Validator: runs automatically after the model has returned its answer
+    # (mode="after" means all fields are already filled in and type-checked)
+    @model_validator(mode="after")
+    def answer_in_options(self):
+        # Only check the options if the question actuallt has any
+        # Open questions (options is None) skip the check
+        if self.options is not None and self.correct_answer not in self.options:
+            raise ValueError("correct_answer must be one of options")
+        return self
