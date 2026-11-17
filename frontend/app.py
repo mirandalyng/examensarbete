@@ -1,6 +1,5 @@
-
-import streamlit as st
 import requests
+import streamlit as st
 
 # base URL for API
 API_URL = "http://127.0.0.1:8000"
@@ -21,20 +20,16 @@ def filters():
 
     decades = st.multiselect("Decade", options=filters["decades"])
     genres = st.multiselect("Genre", options=filters["genres"])
-    count = st.selectbox(
-        "Number of tracks", options=filters["count"])
+    count = st.selectbox("Number of tracks", options=filters["count"])
 
     return count, decades, genres
+
 
 # Fetches random selection of songs from the API - empty list if nothing matches
 
 
 def fetch_tracks(count: int, decades: list[int], genres: list[str]) -> list[dict]:
-    params = {
-        "count": count,
-        "decades": decades,
-        "genres": genres
-    }
+    params = {"count": count, "decades": decades, "genres": genres}
 
     tracks = requests.get(f"{API_URL}/tracks", params=params, timeout=30)
     if tracks.status_code == 404:
@@ -55,7 +50,6 @@ def fetch_followups(tracks: list[dict]) -> list[dict]:
 
 # Main function to display the quiz
 def display_quiz():
-
     st.markdown("# Welcome!")
     count, decades, genres = filters()
 
@@ -76,7 +70,7 @@ def display_quiz():
 
     # if "followups" in st.session_state:
     #     for q in st.session_state["followups"]:
-#         st.write(q)
+    #         st.write(q)
 
     if "tracks" in st.session_state and "followups" in st.session_state:
         for i, (t, followup) in enumerate(
@@ -92,13 +86,12 @@ def display_quiz():
             st.iframe(t["spotify_url"], height=150)
 
             st.markdown(followup["question"])
-            for op in followup["option"]:
+            for op in followup["options"]:
                 st.markdown(f"- {op}")
             with st.expander("Show correct answer"):
                 st.write(followup["correct_answer"])
             st.divider()
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     display_quiz()
