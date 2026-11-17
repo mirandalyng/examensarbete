@@ -301,3 +301,57 @@ uv run streamlit run app.py
 - Följdfrågorna som genereras:
   - inte använda metadatan
   - endast årtal , artist?
+
+---
+
+### 13/11 - Logfire
+
+#### Medverkande: Lisa 
+
+#### Beskrivning: 
+- skapade projekt i logfire 
+- uppdaterade agent.py, deps.py och prompt.py för att testa prompts i logfire
+- testade prompt i playground/main.py 
+
+#### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
+- från logfire: en api-nyckel och en write-token (till .env)
+- för mer info: se agent_logfire.md i docs
+- för att kolla att rätt prompt används:
+```bash 
+cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_prompt())"
+```
+--- 
+
+### 13/11 - Ändring i /generated_quiz (api.py)
+
+#### Medverkande: Miranda
+
+#### Beskrivning:
+- Tidigare: Sorterade låtarna på popularitet (track_popularity + artist_popularity), valde den populäraste halvan och körde agenten på en låt i taget med for och await. Svaret innehöll även answer_artist och answer_track.
+- Nu: Alla låtar skickas till agenten samtidigt med asyncio.gather. Inget urval på popularitet görs, och svaret innehåller bara följdfrågan (result.output.model_dump()).
+- Obs: Frontend matchar frågor och låtar via zip(tracks, followups), vilket fungerar eftersom gather behåller ordningen.
+
+#### Att göra: Begränsa antalet samtidiga anrop med en semafor, eftersom Wikipedia-sökningarna gör varje anrop långsammare.
+
+---
+### 13/11 - Testa wikipedia api för följdfrågor
+
+#### Medverkande: Rickard
+
+#### Beskrivning:
+- Testade ifall agenten kan skriva frågor utifrån riktig fakta istället för låtens metadata.
+- Hämtade artistens wikipedia-sammanfattning i koden och skickade texten till agenten i prompten.
+
+---
+
+### 17/11 - Logfire (funkar för alla) - agent + tool flr wikipedia
+
+#### Medverkande: Lisa, Miranda, Rickard
+
+#### Beskrivning:
+- Bytt till duckdb från parquet
+- Logfire: Fixade 401-felen. Appen använde fel token, och prompten hämtades inte eftersom variabelnamnet inte matchade och v1 inte var släppt till labeln latest. Prompten läses nu från Logfire (variabel prompt__music_agent_instructions).
+
+- Agent: La till ett Wikipedia-verktyg (search_wikipedia i tools.py) så att agenten kan söka fakta innan den skriver en följdfråga. Det registreras via tools=[search_wikipedia] i agent.py.
+
+- Prompt: Ny prompt med roll, process (sök, välj ett bekräftat faktum, skriv frågan) och regler. Exakt 4 alternativ, aldrig artistnamn eller låttitel i frågan, svenska, fallback till metadata om inget hittas.
