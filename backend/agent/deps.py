@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 # The structured data that the agent recives
@@ -17,6 +17,8 @@ class MusicData(BaseModel):
 
 # The structure for the followup questions
 class FollowUps(BaseModel):
-    question: str
-    option: list[str]
-    correct_answer: str
+    question: str = Field(description="Question about the song or artist."
+                          "Information is to be fetched from the internet. Do not include the right answer in the question.")
+    option: list[str] = Field(description="options can be 2-4.")
+    correct_answer: str = Field(
+        description="The correct answer of the questin. Must be included in the options.")

@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException, Query
 from utils.filter_decades import get_decades
 from utils.filter_genres import get_genres
 from utils.num_tracks import num_of_tracks
-
+import asyncio
 # load lancedb database
 df = pd.read_parquet("../data/serving/mart.parquet")
 
@@ -46,28 +46,37 @@ async def get_tracks(
     return result.to_dict(orient="records")
 
 
+# @app.post("/generated_quiz")
+# async def generate_quiz(tracks: list[MusicData]):
+#     if not tracks:
+#         return []
+#     tracks.sort(key=lambda x: (x.track_popularity + x.artist_popularity), reverse=True)
+
+#     half_of_tracks = max(1, len(tracks) // 2)
+#     popular_tracks = tracks[:half_of_tracks]
+
+#     generated_quiz = []
+#     for track in popular_tracks:
+#         result = await music_agent.run(
+#             f"Generate a follow-up question from this track: {track.model_dump()}",
+#             deps=track,
+#         )
+
+#         generated_quiz.append(
+#             {
+#                 "answer_artist": track.artist_names,
+#                 "answer_track": track.track_name,
+#                 "answer_followup_quistion": result.output.model_dump(),
+#             }
+#         )
+
+#     return generated_quiz
+
+
 @app.post("/generated_quiz")
 async def generate_quiz(tracks: list[MusicData]):
-    if not tracks:
-        return []
-    tracks.sort(key=lambda x: (x.track_popularity + x.artist_popularity), reverse=True)
+    async def generate_one_track(track: MusicData):
+        result = await music_agent.run(f"Låtdata: {track.model_dump()}", deps=track)
+        return result.output.model_dump()
 
-    half_of_tracks = max(1, len(tracks) // 2)
-    popular_tracks = tracks[:half_of_tracks]
-
-    generated_quiz = []
-    for track in popular_tracks:
-        result = await music_agent.run(
-            f"Generate a follow-up question from this track: {track.model_dump()}",
-            deps=track,
-        )
-
-        generated_quiz.append(
-            {
-                "answer_artist": track.artist_names,
-                "answer_track": track.track_name,
-                "answer_followup_quistion": result.output.model_dump(),
-            }
-        )
-
-    return generated_quiz
+    return await asyncio.gather(*(generate_one_track(t) for t in tracks))
