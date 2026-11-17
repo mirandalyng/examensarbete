@@ -225,22 +225,29 @@ ps: kör uv sync och kör om dbt filerna med 'uv run dbt run'
 
 #### Medverkande: Miranda, Rickard, Lisa
 
-#### Beskrivning: 
+#### Beskrivning:
+
 ##### Mart:
+
 - filtrering/städning i marten - ta bort remixer, live-versioner, dubbletter i track_name
-- kasta låtar med genre 'other' 
+- kasta låtar med genre 'other'
 
 ##### Städning i repo:
-- flytta om mappar och ändra sökvägar 
+
+- flytta om mappar och ändra sökvägar
 
 ##### Skapa endpoint och testa i fastapi (swagger UI)
+
 - i backend/api.py - skapat get endpoint för filtrering av genres, årtionden och antal låtar (med randomize)
 
 ##### Frontend
+
 - skapa funktion för att testa filter i streamlit med requests
 
-#### Information: 
+#### Information:
+
 ##### För att köra om mart - parquet-filen och lancedb:
+
 ```bash
 cd dbt
 uv run dbt run
@@ -252,17 +259,45 @@ uv run load_lancedb.py
 ```
 
 ##### För att testa i swagger ui:
-```bash 
+
+```bash
 cd backend
 uv run uvicorn api:app --reload
 ```
 
 ##### För att testa i streamlit:
-```bash 
+
+```bash
 cd frontend
 uv run streamlit run app.py
 ```
 
+---
 
+### 11/11 - Påbörja AI-agent, endpoint för att generera quiz med följdfrågor och testa i swagger och streamlit
 
+#### Medverkande: Lisa, Miranda, Rickard
 
+#### Beskrivning:
+
+- Börjat skapa en ai-agent med enklare prompt för att se om den kan ta fram följdfrågor baserat på subsetet.
+- skapat basemodel (classes) för struktured output
+- testat i fronend och swagger ui
+
+#### Information:
+
+- backen/agent
+- backend/api
+- fronend/app
+
+#### Todo:
+
+- utforska sök på internet för agenten (just nu söker den bara baserat på metadatan (ibland internet) i subsetet vilket inte är korrekt)
+- classes ? Är dessa rätt utformade ?
+- dataclasses
+- Multiagent delegation ?
+- Skapa tools och promts
+- Testa i logfire
+- Följdfrågorna som genereras:
+  - inte använda metadatan
+  - endast årtal , artist?
