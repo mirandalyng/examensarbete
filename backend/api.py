@@ -1,14 +1,19 @@
-import pandas as pd
+import asyncio
+
 from agent.agent import music_agent
 from agent.deps import MusicData
 from fastapi import FastAPI, HTTPException, Query
 from utils.filter_decades import get_decades
 from utils.filter_genres import get_genres
 from utils.num_tracks import num_of_tracks
-import asyncio
-# load lancedb database
-df = pd.read_parquet("../data/serving/mart.parquet")
 
+import duckdb
+
+# load lancedb database
+# df = pd.read_parquet("../data/serving/mart.parquet")
+
+with duckdb.connect("../duckdb/warehouse.duckdb") as conn:
+    df = conn.sql("select * from marts.quiz_tracks;").df()
 
 # count options for number of tracks
 COUNT_OPTIONS = [10, 15, 20, 25, 30]
