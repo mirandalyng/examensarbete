@@ -357,17 +357,3 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - Prompt: Ny prompt med roll, process (sök, välj ett bekräftat faktum, skriv frågan) och regler. Exakt 4 alternativ, aldrig artistnamn eller låttitel i frågan, svenska, fallback till metadata om inget hittas.
 
 - Påbörjat README och städat i projektet (lagt filer vi ej använder i 'Not_needed')
-
-### 23/11 Kontroll av följdfrågor
-
-#### Medverkande: Rickard
-
-#### Beskrivning:
-
-- Manuell utvärdering av prompt v1: 10 låtar med seed=1, utan filter. Hämtade låtarna via /tracks och skickade dem som body till /generated_quiz (POST). Varje svar kontrollerades mot Wikipedia-texten agenten fick, via Logfire.
-
-- Resultat: 10/10 korrekta, ingen fråga avslöjade svaret helt. Men 4 av 10 frågor var orimligt svåra eller handlade inte om låten (koreograf, annan låt på albumet, rankingsiffra, inspelningsort för bonusspår). Agenten väljer den mest "överraskande" faktan i stället för en som en fan kan svara på.
-
-- Andra fynd: felaktiga svarsalternativ kontrolleras inte, regeln om låttitel tolkas olika, och tabeller (listplaceringar, låtlistor) når inte agenten eftersom explaintext=1 tar bort dem.
-
-- Förslag: prompt v2 som prioriterar fakta en fan kan svara på (fråga 8 som exempel) och inga årtalsfrågor. Nytt kriterium: rimlig svårighet. Kör om på samma låtar och jämför.
