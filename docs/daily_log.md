@@ -301,3 +301,16 @@ uv run streamlit run app.py
 - Följdfrågorna som genereras:
   - inte använda metadatan
   - endast årtal , artist?
+
+### 24/11 - Testa prompts
+
+#### Medverkande: Lisa, Miranda, Rickard
+
+#### Beskrivning:
+- Vi testade två olika prompts och jämförde dem i logfire
+- Kontrollerade att alla regler följdes
+
+#### Todo:
+- Öka popularitet på både artist och låt
+- Fortsätta testa prompts
+- Definera vilka cases och dataclasses vi ska använda till LLM Judge
