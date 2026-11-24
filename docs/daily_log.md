@@ -348,7 +348,6 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 
 #### Medverkande: Lisa, Miranda, Rickard
 
-#### Beskrivning:
 - Bytt till duckdb från parquet
 - Logfire: Fixade 401-felen. Appen använde fel token, och prompten hämtades inte eftersom variabelnamnet inte matchade och v1 inte var släppt till labeln latest. Prompten läses nu från Logfire (variabel prompt__music_agent_instructions).
 
@@ -357,3 +356,18 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - Prompt: Ny prompt med roll, process (sök, välj ett bekräftat faktum, skriv frågan) och regler. Exakt 4 alternativ, aldrig artistnamn eller låttitel i frågan, svenska, fallback till metadata om inget hittas.
 
 - Påbörjat README och städat i projektet (lagt filer vi ej använder i 'Not_needed')
+
+---
+
+### 24/11 - Testa prompts
+
+#### Medverkande: Lisa, Miranda, Rickard
+
+#### Beskrivning:
+- Vi testade två olika prompts och jämförde dem i logfire
+- Kontrollerade att alla regler följdes
+
+#### Todo:
+- Öka popularitet på både artist och låt
+- Fortsätta testa prompts
+- Definera vilka cases och dataclasses vi ska använda till LLM Judge
