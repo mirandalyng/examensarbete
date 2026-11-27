@@ -4,9 +4,12 @@ from pydantic import BaseModel, model_validator, Field
 # The structured data that the agent recives
 class MusicData(BaseModel):
     spotify_url: str
-    artist_id: str
-    artist_names: str
-    track_name: str
+    track_name: str 
+    title_normalized: str # search + validation
+    primary_artist: str # for search
+    artist_list: list[str] # validator
+    #artist_id: str
+    #artist_names: str
     genres: list[str]
     release_year: int
     decade: int

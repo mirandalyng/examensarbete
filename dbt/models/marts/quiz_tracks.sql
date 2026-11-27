@@ -64,7 +64,7 @@ with
             arg_max(ar.artist_id, ar.artist_popularity) as artist_id, 
             any_value(t.track_name) as track_name,
             -- Title without suffixes such as "(Radio Edit)" or "- Live at ...".
-            -- Used only to find the same song under different track_ids.
+            -- Used to find duplicates and as the search/validation title.
             trim(regexp_replace(any_value(t.track_name),
             '\s*(\(.*\)|\[.*\]|\s-\s.*)$', '')) as title_normalized,
             min(t.release_year) as release_year,
@@ -72,6 +72,10 @@ with
             max(t.track_popularity) as track_popularity,
             -- A track can have several artists: combine their names.
             string_agg(distinct ar.artist_name, ', ') as artist_names,
+            -- Name of the most popular artist on the track (for search and display).
+            arg_max(ar.artist_name, ar.artist_popularity) as primary_artist,
+            -- All artist names as a real list (no need to split a string).
+            list(distinct ar.artist_name) as artist_list,
             -- The most popular artist on the track.
             max(ar.artist_popularity) as artist_popularity,
             -- Main genres from the seed, merged across all artists on the track.
@@ -94,9 +98,9 @@ filtered as (
         and {{ is_latin_text('artist_names') }}
         and (album is null or {{ is_latin_text('album') }})
         and (
-            (artist_popularity > 50 and track_popularity > 30)
+            (artist_popularity > 60 and track_popularity > 40)
             or 
-            (track_popularity > 50 and artist_popularity > 30)
+            (track_popularity > 60 and artist_popularity > 40)
         )
         and release_year >= 1950
 
@@ -117,7 +121,7 @@ filtered as (
         )
 )
 
-select * exclude (title_normalized)
+select *
 from filtered
 qualify row_number() over (
     partition by title_normalized, artist_names
@@ -125,5 +129,6 @@ qualify row_number() over (
 ) = 1
 
 -- total rows 126605
+-- 66127 (27/11)
 
 
