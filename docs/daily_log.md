@@ -379,13 +379,24 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 
 #### Beskrivning:
 - **I marten:**
-  - primary_artist för sökning och artist_list för validering.
+  - primary_artist för agentens sökning på wikipedia 
+  - artist_list ger agenten hela bilden för sammarbeten osv men ställer inte till det i sökningen. 
   - höjt popularity till 60/40 för att minska antalet okända låtar. 
 (kollat antal låtar och per genre/årtionde i duckdb ui (66127 låtar kvar))
 
-**I agent**
-- uppdaterat class Musicdata (lagt till primary_artist, artist_list och title_normalized)
-(ändrat namn i frontend från artist_names till artist_list - artist_names finns inte längre men används i marten)
+**för agenten**
+- backend/agent/deps.py 
+  - uppdaterat class Musicdata (lagt till primary_artist, artist_list och title_normalized)
+  - uppdaterat FollowUps:
+    - source_title: str # Wikipedia-article title, or "metadata"
+    - source_fact: str # lines that confirm the answerr
+    - used_fallback: bool # True if the question is from the 'metadata'
+  - model_validator för check av följdfrågor och options
+- frontend/app.py
+  - ändrat namn i frontend från artist_names till artist_list - artist_names finns inte längre men används i marten
+- agent.py
+  - uppdaterat music_agent_instructions så att agenten vet vad vi räknar som populär/känd och snyggare formatering 
+
 
 #### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
 
