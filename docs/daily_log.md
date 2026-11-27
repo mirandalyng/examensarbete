@@ -371,3 +371,23 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - Öka popularitet på både artist och låt
 - Fortsätta testa prompts
 - Definera vilka cases och dataclasses vi ska använda till LLM Judge
+
+
+### Datum - Rubrik
+
+#### Medverkande:
+
+#### Beskrivning:
+- **I marten:**
+  - primary_artist för sökning och artist_list för validering.
+  - höjt popularity till 60/40 för att minska antalet okända låtar. 
+(kollat antal låtar och per genre/årtionde i duckdb ui (66127 låtar kvar))
+
+**I agent**
+- uppdaterat class Musicdata (lagt till primary_artist, artist_list och title_normalized)
+(ändrat namn i frontend från artist_names till artist_list - artist_names finns inte längre men används i marten)
+
+#### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
+
+#### Todo:
+- kör uv run dbt run --select quiz_tracks för att köra om marten

@@ -77,7 +77,7 @@ def display_quiz():
             zip(st.session_state["tracks"], st.session_state["followups"]),
             start=1,
         ):
-            artists = t["artist_names"]
+            artists = t["artist_list"]
             if isinstance(artists, list):
                 artists = ", ".join(artists)
 
