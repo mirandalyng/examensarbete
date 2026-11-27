@@ -18,9 +18,9 @@ def load_filters():
 def filters():
     filters = load_filters()
 
-    decades = st.multiselect("Decade", options=filters["decades"])
+    decades = st.multiselect("Årtionde", options=filters["decades"])
     genres = st.multiselect("Genre", options=filters["genres"])
-    count = st.selectbox("Number of tracks", options=filters["count"])
+    count = st.selectbox("Antal låtar", options=filters["count"])
 
     return count, decades, genres
 
@@ -50,16 +50,16 @@ def fetch_followups(tracks: list[dict]) -> list[dict]:
 
 # Main function to display the quiz
 def display_quiz():
-    st.markdown("# Welcome!")
+    st.markdown("# Skapa ditt eget quiz!")
     count, decades, genres = filters()
 
-    if st.button("Generate Quiz"):
+    if st.button("Generera Quiz"):
         tracks = fetch_tracks(count, decades, genres)
 
         if not tracks:
             st.session_state.pop("tracks", None)
             st.session_state.pop("followups", None)
-            st.warning("No tracks matches filter, try something else")
+            st.warning("Inget matchar sökningen. Testa igen.")
         else:
             st.session_state["tracks"] = tracks
             st.session_state["followups"] = fetch_followups(tracks)
@@ -81,10 +81,13 @@ def display_quiz():
             if isinstance(artists, list):
                 artists = ", ".join(artists)
 
-            st.subheader(f"Question-{i}.")
-
+            # Iframe with spotify URL for the question.
+            st.subheader(f"Fråga {i}")
+            st.markdown("### Vad heter låten och artisten/gruppen?")
             st.iframe(t["spotify_url"], height=150)
 
+            # Follow up question
+            st.markdown("### Följdfråga till fråga {i}: ")
             st.markdown(followup["question"])
             for op in followup["options"]:
                 st.markdown(f"- {op}")
