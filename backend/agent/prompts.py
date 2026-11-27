@@ -1,9 +1,8 @@
 import logfire
 from logfire import VariablesOptions
 from dotenv import load_dotenv
-import os
 
-load_dotenv()
+load_dotenv() 
 
 # Configureate Logfire with API-key and support for variables (prompts)
 logfire.configure(variables=VariablesOptions())
