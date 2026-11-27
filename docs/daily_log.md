@@ -373,10 +373,8 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - Definera vilka cases och dataclasses vi ska använda till LLM Judge
 
 
-### Datum - Rubrik
-
-#### Medverkande:
-
+### 27/11 - Skapa bättre förutsättningar för agenten och prompt-testning
+#### Medverkande: Lisa
 #### Beskrivning:
 - **I marten:**
   - primary_artist för agentens sökning på wikipedia 
@@ -397,8 +395,9 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - agent.py
   - uppdaterat music_agent_instructions så att agenten vet vad vi räknar som populär/känd och snyggare formatering 
 
-
 #### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
-
+- backend/agents.py
+- backend/deps.py
+- frontend/app.py (endast namnbyte)
 #### Todo:
 - kör uv run dbt run --select quiz_tracks för att köra om marten
