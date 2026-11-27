@@ -395,9 +395,27 @@ cd backend && uv run python -c "from agent.prompts import get_prompt; print(get_
 - agent.py
   - uppdaterat music_agent_instructions så att agenten vet vad vi räknar som populär/känd och snyggare formatering 
 
+**I playground/main.py**
+- lade till flera olika testlåtar (mha clude) så vi kan testa olika promptar på samma uttsättning låtar
+- bara att ändra PROMPT för att testa andra frågor på samma test-låtar! 
+
 #### Information: - vilken fil du jobbat i - var finns ytterligare information - ex mapp/fil
 - backend/agents.py
 - backend/deps.py
 - frontend/app.py (endast namnbyte)
+- backend/playground/main.py
+
+- för att testa prompten med test-datan i playground/main.py - stå i roten (den hitta inte annars):
+```bash
+uv run python -m backend.playground.main
+```
+
 #### Todo:
-- kör uv run dbt run --select quiz_tracks för att köra om marten
+- för att ladda om marten (metadata-setet)
+```bash
+uv run dvt run --select quiz_tracks
+```
+
+Nästa steg:
+- testa prompt-version i logfire och testa om det blir någon skillnad när vi kör playground/main.py
+- när vi är nöjd - evals och llm judge! woopwoop
