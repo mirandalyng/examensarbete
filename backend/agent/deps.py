@@ -26,13 +26,17 @@ class FollowUps(BaseModel):
     # Optional: None (or left out) means an open question without alternatives
     options: list[str] | None = None
     correct_answer: str
+    source_title: str # Wikipedia-article title, or "metadata"
+    source_fact: str # lines that confirm the answerr
+    used_fallback: bool # True if the question is from the 'metadata'
 
     # Validator: runs automatically after the model has returned its answer
     # (mode="after" means all fields are already filled in and type-checked)
     @model_validator(mode="after")
-    def answer_in_options(self):
-        # Only check the options if the question actuallt has any
-        # Open questions (options is None) skip the check
-        if self.options is not None and self.correct_answer not in self.options:
-            raise ValueError("correct_answer must be one of options")
+    def check_option(self):
+        if self.options is not None:
+            if len(self.options) != 3 or len(set(self.options)) != 3:
+                raise ValueError("options must be 3 unique alternatives")
+            if self.correct_answer not in self.options:
+                raise ValueError("correct_answer must be one of options")
         return self

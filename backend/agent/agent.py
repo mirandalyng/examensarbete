@@ -31,7 +31,20 @@ The static prompt from Logfire is combined with this text.
 @music_agent.instructions
 def track_context(ctx: RunContext[MusicData]) -> str:
     d = ctx.deps
-    return (
-        f"Låt: {d.track_name}\nArtist: {d.artist_names}\n"
-        f"Album: {d.album}\nÅr: {d.release_year}\nGenrer: {', '.join(d.genres)}"
+    is_famous = d.artist_popularity > 90 and d.track_popularity > 90
+    mode = (
+        "Give no options (options = null). correct_answer should be short with only one answer "
+        if is_famous
+        else "Give EXACTLY 3 options"
     )
+    lines = [
+        f"Låt: {d.title_normalized}",
+        f"Huvudartist: {d.primary_artist}",
+        f"Alla artister: {', '.join(d.artist_list)}",
+        f"År: {d.release_year}",
+        f"Genrer: {', '.join(d.genres)}",
+    ]
+    if d.album != "Missing album":
+        lines.insert(3, f"Album: {d.album}")
+    lines.append(f"Frågeformat: {mode}")
+    return "\n".join(lines)
